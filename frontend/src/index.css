@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+VN:wght@100..400&display=swap");
+@import "tailwindcss";
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+::selection {
+  background-color: #381f1a;
+  color: #f67655;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+.glow-background:nth-child(1) {
+  background: radial-gradient(
+    circle at center,
+    #7b4d2a84,
+    rgba(0, 0, 0, 0) 70%
+  );
+  animation: pulseGlow 5s ease-in-out infinite;
+  filter: blur(80px);
+}
+
+.glow-background:nth-child(2) {
+  background: radial-gradient(
+    circle at center,
+    #4a2c639b,
+    rgba(0, 0, 0, 0) 70%
+  );
+  animation: pulseGlow 4s ease-in-out infinite;
+  filter: blur(80px);
+}
+
+@keyframes pulseGlow {
+  0% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 0.3;
+  }
+}
