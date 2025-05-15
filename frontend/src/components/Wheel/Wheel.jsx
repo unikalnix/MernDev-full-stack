@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { Code, MonitorIcon, LayoutGrid, Zap } from "lucide-react"
+import './Wheel.css'
 
 const items = [
   {
@@ -162,7 +163,7 @@ const Wheel = () => {
           return (
             <motion.div
               key={item.id}
-              className={`absolute flex items-center justify-center w-[50px] h-[50px] md:w-[60px] md:h-[60px] rounded-lg bg-[#1a1a1a8c]/80 backdrop-blur-md border border-gray-800/50 cursor-pointer
+              className={`cursor-pointer absolute flex items-center justify-center w-[50px] h-[50px] md:w-[60px] md:h-[60px] rounded-lg bg-[#1a1a1a8c]/80 backdrop-blur-md border border-gray-800/50 
                          ${activeItem.id === item.id ? "text-[#ff5e3a]" : "text-gray-400"}`}
               style={{
                 top: position.top,
@@ -183,28 +184,6 @@ const Wheel = () => {
           )
         })}
       </motion.div>
-
-      <style jsx global>{`
-        .glow-background-wheel {
-          background: radial-gradient(
-            circle at center,
-            #5e3227c1,
-            rgba(0, 0, 0, 0) 70%
-          );
-          filter: blur(40px);
-          animation: pulseGlow 5s ease-in-out infinite;
-        }
-
-        @keyframes pulseGlow {
-          0%,
-          100% {
-            opacity: 0.7;
-          }
-          50% {
-            opacity: 1;
-          }
-        }
-      `}</style>
     </div>
   )
 }

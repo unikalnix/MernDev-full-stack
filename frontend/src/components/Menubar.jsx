@@ -3,8 +3,8 @@ import { navItems } from "../assets/data";
 
 const Menubar = ({ closeMenubar, active, setActive }) => {
   return (
-    <div className="bg-[#09090B] backdrop-blur-2xl min-h-[300px] flex fixed right-0 left-0 z-50">
-      <ul className="flex flex-col gap-4   w-full px-4">
+    <div className="backdrop-blur-2xl min-h-[300px] flex fixed right-0 left-0 z-60">
+      <ul className="flex flex-col gap-4 w-full p-4">
         {navItems.length > 0
           ? navItems.map((item, index) => {
               return (
@@ -18,7 +18,7 @@ const Menubar = ({ closeMenubar, active, setActive }) => {
                   key={index}
                   className={`${
                     active === item.id && "bg-[#3A1E18] text-[#f67655]"
-                  } px-3 py-2 cursor-pointer rounded-md`}
+                  } px-3 py-2  rounded-md`}
                 >
                   {item.label}
                 </li>
