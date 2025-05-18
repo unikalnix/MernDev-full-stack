@@ -110,14 +110,18 @@ const Home = () => {
           title="Work Experience"
           paragraph="My professional journey has equipped me with a diverse skill set and a deep understanding of creating exceptional digital products."
         />
-        <div className="min-h-screen p-5 ml-6 flex flex-col gap-10 overflow-hidden">
+        <div className="min-h-screen p-5 md:px-52 ml-6 flex flex-col gap-10 overflow-hidden">
           {[...Array(3)].map((_, idx) => {
             const { scrollYProgress } = useScroll({
               target: refs.current[idx],
-              offset: ["start end", "end end"],
+              offset: ["start end", "start center"],
             });
 
-            const x = useTransform(scrollYProgress, [0, 1], [100, 50]);
+            const x = useTransform(
+              scrollYProgress,
+              [0, 1],
+              [100, window.innerWidth <= 768 ? 10 : 50]
+            );
             return (
               <motion.div
                 ref={refs.current[idx]}
