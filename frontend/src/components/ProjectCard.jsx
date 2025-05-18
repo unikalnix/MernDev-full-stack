@@ -1,6 +1,6 @@
 import { ArrowRight, Github } from "lucide-react";
 
-const Project = ({
+const ProjectCard = ({
   idx,
   image,
   projectCount,
@@ -73,4 +73,4 @@ const Project = ({
   );
 };
 
-export default Project;
+export default ProjectCard;

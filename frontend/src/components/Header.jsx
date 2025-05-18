@@ -6,8 +6,8 @@ import Glow from "./Glow";
 const Header = () => {
   return (
     <div className="relative w-full min-h-screen overflow-hidden">
-      <Glow bg="#4a2c639b" left="0%" top="40%" mdLeft="10%" mdTop="10%" />
-      <Glow bg="#7b4d2a84" left="-10%" top="50%" mdLeft="30%" mdTop="-10%" />
+      <Glow bg="#7b4d2a" left="-40%" top="-10%" mdLeft="-10%" mdTop="5%" />
+      <Glow bg="#4a2c63" left="-40%" top="20%" mdLeft="38%" mdTop="10%" />
 
       <div className="mx-auto px-4 py-8 md:py-16 h-full">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 h-full">
