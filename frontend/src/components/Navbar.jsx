@@ -21,7 +21,18 @@ const Navbar = () => {
                 return (
                   <li
                     key={index}
-                    onClick={() => setActive(item.id)}
+                    onClick={() => {
+                      setActive(item.id);
+                      const section = document.getElementById(item.id);
+                      if (section) {
+                        console.log(section.id);
+                        if (section.id === "home") {
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        } else {
+                          section.scrollIntoView({ behavior: "smooth" });
+                        }
+                      }
+                    }}
                     className={` ${
                       active === item.id ? "text-[#f67655]" : "text-[#CACACA]"
                     } text-[14px] ${
@@ -62,7 +73,13 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {menubarOpen && <Menubar closeMenubar={closeMenubar} active={active} setActive={setActive}/>}
+      {menubarOpen && (
+        <Menubar
+          closeMenubar={closeMenubar}
+          active={active}
+          setActive={setActive}
+        />
+      )}
     </>
   );
 };

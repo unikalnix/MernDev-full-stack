@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { navItems } from "../assets/data";
 
 const Menubar = ({ closeMenubar, active, setActive }) => {
@@ -11,9 +10,16 @@ const Menubar = ({ closeMenubar, active, setActive }) => {
                 <li
                   onClick={() => {
                     setActive(item.id);
-                    setTimeout(() => {
-                      closeMenubar();
-                    }, 100);
+                    const section = document.getElementById(item.id);
+                    if (section) {
+                      console.log(section.id);
+                      if (section.id === "home") {
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      } else {
+                        section.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }
+                    closeMenubar()
                   }}
                   key={index}
                   className={`${
