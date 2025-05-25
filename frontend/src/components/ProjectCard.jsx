@@ -1,8 +1,9 @@
-import { ArrowRight, Github } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Github, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const ProjectCard = ({
   idx,
-  image,
+  images,
   projectCount,
   title,
   technologies,
@@ -10,23 +11,79 @@ const ProjectCard = ({
   liveCode,
   sourceCode,
 }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [openImages, setOpenImages] = useState(false);
+  const moveLeft = () => {
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+  const moveRight = () => {
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+  useEffect(() => {
+    if (openImages) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [openImages]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!openImages) return;
+
+      if (e.key === "ArrowLeft") {
+        moveLeft();
+      } else if (e.key === "ArrowRight") {
+        moveRight();
+      } else if (e.key === "Escape") {
+        setOpenImages(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [openImages, moveLeft, moveRight]);
+
   return (
-    
+    <>
       <div
-        className={`px-4 flex flex-col items-center justify-between mb-12 ${
+        className={`px-4 flex flex-col items-start mb-12 ${
           idx % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-        } md:items-start md:gap-8 lg:mb-0`}
+        } md:gap-8 lg:mb-0`}
       >
-        <div className="relative overflow-hidden w-full h-[250px] mb-8 lg:w-[1000px] lg:h-[350px] group">
+        <div
+          onClick={() => setOpenImages(true)}
+          className="relative overflow-hidden w-full h-[250px] mb-8 lg:w-[1000px] lg:h-[350px] group flex-1"
+        >
+          <div className="absolute right-3 top-3 flex items-center justify-between  gap-4 p-2 z-[500]">
+            <span
+              onClick={(e) => {
+                e.stopPropagation();
+                moveLeft();
+              }}
+              className="select-none cursor-pointer bg-[#14141689] hover:bg-[#141416] transition-all duration-200 rounded-full p-3"
+            >
+              <ChevronLeft />
+            </span>
+            <span
+              onClick={(e) => {
+                e.stopPropagation();
+                moveRight();
+              }}
+              className="select-none cursor-pointer bg-[#14141689] hover:bg-[#141416] transition-all duration-200 rounded-full p-3"
+            >
+              <ChevronRight />
+            </span>
+          </div>
           <img
-            className="w-full lg:w-full lg:h-full h-full object-cover group-hover:scale-110 transition-all duration-200"
-            src={image}
+            className="w-full lg:w-full lg:h-full h-full object-cover object-top group-hover:scale-110 transition-all duration-200"
+            src={images[currentIndex]}
             alt={title}
           />
-          <div className="w-full h-[250px] bg-black opacity-40 z-50 absolute top-0 lg:w-[1000px] lg:h-[400px]"></div>{" "}
           {/* Layer */}
+          <div className="w-full h-full bg-black opacity-40 z-50 absolute top-0"></div>{" "}
         </div>
-        <div>
+        <div className="flex-1">
           <h1 className="font-jetbrains text-[#a1a1aa] text-sm mb-3 lg:mb-5">
             Project {projectCount < 10 ? `0${projectCount}` : projectCount}
           </h1>
@@ -69,7 +126,44 @@ const ProjectCard = ({
           </div>
         </div>
       </div>
-    
+
+      {openImages && (
+        <div className="fixed inset-0 z-[999] flex items-center justify-center">
+          <div className="relative w-full h-full md:w-[90vw] md:max-w-5xl md:h-[80vh] rounded-lg overflow-hidden shadow-xl">
+            {/* Close Button */}
+            <button
+              className="absolute top-0 right-0 z-10 bg-white/10 hover:bg-white/20 p-2 rounded-full text-white"
+              onClick={() => setOpenImages(false)}
+            >
+              <X />
+            </button>
+
+            {/* Left Arrow */}
+            <button
+              className="absolute top-1/2 left-0 transform -translate-y-1/2 z-10 bg-[#525253] hover:bg-[#212121] cursor-pointer p-2 rounded-full text-white"
+              onClick={moveLeft}
+            >
+              <ChevronLeft />
+            </button>
+
+            {/* Right Arrow */}
+            <button
+              className="absolute top-1/2 right-0 transform -translate-y-1/2 z-10 bg-[#525253] hover:bg-[#212121] cursor-pointer p-2 rounded-full text-white"
+              onClick={moveRight}
+            >
+              <ChevronRight />
+            </button>
+
+            {/* Image */}
+            <img
+              src={images[currentIndex]}
+              alt={`Project Image ${currentIndex + 1}`}
+              className="w-full h-full object-contain bg-black"
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

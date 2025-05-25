@@ -2,8 +2,27 @@ import projectModel from "../models/project.js";
 import { v2 as cloudinary } from "cloudinary";
 
 const projectsList = async (req, res) => {
+  let isClient = req.originalUrl.includes("client");
   try {
     const projects = await projectModel.find();
+    if (isClient) {
+      const filteredProjects = projects.map((project) => {
+        return {
+          title: project.title,
+          description: project.description,
+          previewUrl: project.previewUrl,
+          codeUrl: project.codeUrl,
+          technologies: project.technologies,
+          images: project.images,
+        };
+      });
+
+      return res.json({
+        ok: true,
+        message: "Projects found",
+        projects: filteredProjects,
+      });
+    }
     return res.json({
       ok: true,
       message: "Projects found",

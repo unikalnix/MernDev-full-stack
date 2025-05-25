@@ -1,16 +1,42 @@
 import { X, Menu, Sun } from "lucide-react";
-import { useState } from "react";
-import { navItems } from "../assets/data";
+import { useEffect, useState } from "react";
+import { navItems } from "../assets/data.jsx";
 import Menubar from "./Menubar";
 
-const Navbar = () => {
-  const [active, setActive] = useState("home");
+const Navbar = ({ activeSection }) => {
   const [menubarOpen, setMenubarOpen] = useState(false);
+  const [shrink, setShrink] = useState(false);
   const closeMenubar = () => setMenubarOpen(false);
+
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    const navbarHeight = document.getElementById('navbar').clientHeight;
+    if(section){
+      const offset = section.getBoundingClientRect().top + window.scrollY - navbarHeight;
+      window.scrollTo({behavior:'smooth', top: offset})
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      if (scrollY > 0.003) {
+        setShrink(true);
+      } else {
+        setShrink(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
-      <nav className="px-4 py-2 w-full min-h-20 flex items-center justify-between backdrop-blur-md sticky top-0 z-20">
+      <nav
+        id="navbar"
+        className="px-4 py-2 w-full min-h-20 flex items-center justify-between backdrop-blur-md sticky top-0 z-[999]"
+      >
         <h1 className="text-[#CACACA] font-semibold text-[24px] relative w-fit cursor-pointer">
           Portfolio
           <span className="absolute top-0 right-0 w-[5px] h-[5px] rounded-full bg-[#f67655]"></span>
@@ -21,22 +47,13 @@ const Navbar = () => {
                 return (
                   <li
                     key={index}
-                    onClick={() => {
-                      setActive(item.id);
-                      const section = document.getElementById(item.id);
-                      if (section) {
-                        console.log(section.id);
-                        if (section.id === "home") {
-                          window.scrollTo({ top: 0, behavior: "smooth" });
-                        } else {
-                          section.scrollIntoView({ behavior: "smooth" });
-                        }
-                      }
-                    }}
+                    onClick={() => scrollToSection(item.id)}
                     className={` ${
-                      active === item.id ? "text-[#f67655]" : "text-[#CACACA]"
+                      activeSection === item.id
+                        ? "text-[#f67655]"
+                        : "text-[#CACACA]"
                     } text-[14px] ${
-                      active === item.id
+                      activeSection === item.id
                         ? "hover:text-[#f67655]"
                         : "hover:text-[#ffffff]"
                     } cursor-pointer transition-all duration-200 relative before:content-[''] before:absolute before:bottom-0 before:w-0 before:h-[2px] before:bg-[#f67655] before:transition-all before:duration-500 hover:before:w-full`}
@@ -74,11 +91,7 @@ const Navbar = () => {
       </nav>
 
       {menubarOpen && (
-        <Menubar
-          closeMenubar={closeMenubar}
-          active={active}
-          setActive={setActive}
-        />
+        <Menubar closeMenubar={closeMenubar} activeSection={activeSection} />
       )}
     </>
   );

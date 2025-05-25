@@ -13,6 +13,7 @@ import upload from "../middlewares/multer.js";
 const projectRouter = express.Router();
 
 projectRouter.get("/list", adminAuth, projectsList);
+projectRouter.get("/client/list", projectsList);
 projectRouter.post(
   "/add",
   adminAuth,
