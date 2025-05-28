@@ -11,26 +11,28 @@ import adminAuth from "./middlewares/adminAuth.js";
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(express.json());
+app.use(cookieParser());
 app.use(
   cors({
     origin: [
-      "https://mern-dev-full-stack-admin.vercel.app",
-      "https://mern-dev-full-stack-frontend.vercel.app",
+      process.env.VITE_FRONTEND_URL,
+      process.env.VITE_ADMIN_URL,
+      process.env.VERCEL_FRONTEND_URL,
+      process.env.VERCEL_ADMIN_URL,
     ],
     credentials: true,
   })
 );
-app.use(cookieParser());
-app.use(express.json());
 
 connectDB();
 connectCloudinary();
 
 app.get("/", (req, res) => {
-  res.send("Hello world");
+  res.send("API WORKING");
 });
 
-app.get("/check-auth", adminAuth, (req, res) => {
+app.get("/api/check-auth", adminAuth, (req, res) => {
   res.json({ ok: true, message: "Auth Successful" });
 });
 
@@ -38,5 +40,5 @@ app.use("/api/auth", authRouter);
 app.use("/api/projects", projectRouter);
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-  });
+  console.log(`Server is running on http://localhost:${port}`);
+});
