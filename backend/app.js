@@ -13,7 +13,7 @@ const port = process.env.PORT || 3000;
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: [process.env.VITE_FRONTEND_URL, process.env.VITE_ADMIN_URL],
     credentials: true,
   })
 );
