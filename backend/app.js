@@ -37,8 +37,6 @@ app.get("/check-auth", adminAuth, (req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/projects", projectRouter);
 
-if (process.env.ENVIRONMENT === "LOCAL") {
-  app.listen(port, () => {
+app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
   });
-}
