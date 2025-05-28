@@ -11,12 +11,10 @@ import adminAuth from "./middlewares/adminAuth.js";
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(
-  cors({
-    origin: [process.env.VITE_FRONTEND_URL, process.env.VITE_ADMIN_URL],
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: ['https://mern-dev-full-stack-admin.vercel.app', 'https://mern-dev-full-stack-frontend.vercel.app'],
+  credentials: true,
+}));
 app.use(cookieParser());
 app.use(express.json());
 
