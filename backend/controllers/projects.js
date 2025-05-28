@@ -5,7 +5,6 @@ import { v2 as cloudinary } from "cloudinary";
 const projectsList = async (req, res) => {
   let isClient = req.originalUrl.includes("client");
   try {
-    await connectDB();
     const projects = await projectModel.find();
     if (isClient) {
       const filteredProjects = projects.map((project) => {
