@@ -20,7 +20,7 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 
-await connectDB();
+connectDB();
 connectCloudinary();
 
 app.get("/", (req, res) => {
