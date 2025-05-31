@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import connectDB from "./config/db.js";
 import "dotenv/config";
 import authRouter from "./routes/adminAuth.js";
 import projectRouter from "./routes/projects.js";
@@ -24,6 +25,7 @@ app.use(
   })
 );
 
+connectDB();
 connectCloudinary();
 
 app.get("/", (req, res) => {
