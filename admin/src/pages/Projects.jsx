@@ -414,7 +414,7 @@ const Projects = () => {
                 })}
               </div>
 
-              <ul className="flex gap-3 mb-4">
+              <ul className="flex gap-3 mb-4 flex-wrap">
                 {String(project.technologies)
                   .split(", ")
                   .map((tech, i) => {

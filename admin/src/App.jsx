@@ -16,38 +16,44 @@ const App = () => {
   useEffect(() => {}, [location.pathname]);
   useEffect(() => {}, [isLogin]);
   if (isLogin === null) {
-    return <Loader/>
+    return <Loader />;
   }
   return (
-    <div className="flex w-full">
-      {isLogin && <Sidebar pathname={location.pathname} />}
-      <div className="w-full">
-        {isLogin && <Navbar />}
-        <Routes>
-          {
-            <Route
-              path="/login"
-              element={!isLogin ? <Login /> : <Navigate to={"/"} />}
-            />
-          }
-          <Route
-            path="/"
-            element={isLogin ? <Dashboard /> : <Navigate to={"/login"} />}
-          />
-          <Route
-            path="/projects"
-            element={isLogin ? <Projects /> : <Navigate to={"/login"} />}
-          />
-          <Route
-            path="/project/:id"
-            element={isLogin ? <Projects /> : <Navigate to={"/login"} />}
-          />
-          <Route
-            path="/messages"
-            element={isLogin ? <Messages /> : <Navigate to={"/login"} />}
-          />
-          <Route path="/*" element={<PageNotFound />} />
-        </Routes>
+    <div className="flex flex-col md:flex-row w-full min-h-screen">
+      <div className="flex-1 flex flex-col md:flex-row">
+        {isLogin && <Sidebar pathname={location.pathname} />}
+        <div className="flex-1 flex flex-col">
+          {isLogin && <Navbar />}
+          <main className="flex-1 pb-16 md:pb-0">
+            {" "}
+            {/* Add bottom padding on mobile */}
+            <Routes>
+              {
+                <Route
+                  path="/login"
+                  element={!isLogin ? <Login /> : <Navigate to={"/"} />}
+                />
+              }
+              <Route
+                path="/"
+                element={isLogin ? <Dashboard /> : <Navigate to={"/login"} />}
+              />
+              <Route
+                path="/projects"
+                element={isLogin ? <Projects /> : <Navigate to={"/login"} />}
+              />
+              <Route
+                path="/project/:id"
+                element={isLogin ? <Projects /> : <Navigate to={"/login"} />}
+              />
+              <Route
+                path="/messages"
+                element={isLogin ? <Messages /> : <Navigate to={"/login"} />}
+              />
+              <Route path="/*" element={<PageNotFound />} />
+            </Routes>
+          </main>
+        </div>
       </div>
     </div>
   );
