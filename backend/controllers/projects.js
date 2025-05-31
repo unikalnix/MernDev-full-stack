@@ -1,9 +1,11 @@
 import connectDB from "../config/db.js";
 import projectModel from "../models/project.js";
 import { v2 as cloudinary } from "cloudinary";
+import connectDB from "../config/db.js";
 
 const projectsList = async (req, res) => {
   let isClient = req.originalUrl.includes("client");
+  await connectDB();
   try {
     const projects = await projectModel.find();
     if (isClient) {
