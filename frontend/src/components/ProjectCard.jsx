@@ -55,13 +55,13 @@ const ProjectCard = ({
           onClick={() => setOpenImages(true)}
           className="relative overflow-hidden w-full h-[250px] mb-8 lg:w-[1000px] lg:h-[350px] group flex-1"
         >
-          <div className="absolute right-3 top-3 flex items-center justify-between  gap-4 p-2 z-[500]">
+          <div className="absolute right-3 top-3 flex items-center justify-between gap-2 md:gap-4 md:p-2 z-[500]">
             <span
               onClick={(e) => {
                 e.stopPropagation();
                 moveLeft();
               }}
-              className="select-none cursor-pointer bg-[#14141689] hover:bg-[#141416] transition-all duration-200 rounded-full p-3"
+              className="select-none cursor-pointer bg-[#14141689] hover:bg-[#141416] transition-all duration-200 rounded-full p-1.5 md:p-3"
             >
               <ChevronLeft />
             </span>
@@ -70,7 +70,7 @@ const ProjectCard = ({
                 e.stopPropagation();
                 moveRight();
               }}
-              className="select-none cursor-pointer bg-[#14141689] hover:bg-[#141416] transition-all duration-200 rounded-full p-3"
+              className="select-none cursor-pointer bg-[#14141689] hover:bg-[#141416] transition-all duration-200 rounded-full p-1.5 md:p-3"
             >
               <ChevronRight />
             </span>
@@ -90,7 +90,7 @@ const ProjectCard = ({
           <h1 className="text-[#fafafa] text-3xl font-semibold mb-4 lg:mb-6">
             {title}
           </h1>
-          <ul className="flex items-center gap-3 text-xs font-normal mb-4 lg:mb-6">
+          <ul className="flex flex-wrap items-center gap-3 text-xs font-normal mb-4 lg:mb-6">
             {String(technologies)
               .split(",")
               .map((tech, index) => {
@@ -132,7 +132,7 @@ const ProjectCard = ({
           <div className="relative w-full h-full md:w-[90vw] md:max-w-5xl md:h-[80vh] rounded-lg overflow-hidden shadow-xl">
             {/* Close Button */}
             <button
-              className="absolute top-0 right-0 z-10 bg-white/10 hover:bg-white/20 p-2 rounded-full text-white"
+              className="absolute md:top-0 top-[10px] right-[10px] z-10 bg-white/10 hover:bg-white/20 p-2 rounded-full text-white"
               onClick={() => setOpenImages(false)}
             >
               <X />
@@ -140,7 +140,7 @@ const ProjectCard = ({
 
             {/* Left Arrow */}
             <button
-              className="absolute top-1/2 left-0 transform -translate-y-1/2 z-10 bg-[#525253] hover:bg-[#212121] cursor-pointer p-2 rounded-full text-white"
+              className="absolute top-1/2 left-[10px] transform -translate-y-1/2 z-10 bg-[#525253] hover:bg-[#212121] cursor-pointer p-2 rounded-full text-white"
               onClick={moveLeft}
             >
               <ChevronLeft />
@@ -148,7 +148,7 @@ const ProjectCard = ({
 
             {/* Right Arrow */}
             <button
-              className="absolute top-1/2 right-0 transform -translate-y-1/2 z-10 bg-[#525253] hover:bg-[#212121] cursor-pointer p-2 rounded-full text-white"
+              className="absolute top-1/2 right-[10px] transform -translate-y-1/2 z-10 bg-[#525253] hover:bg-[#212121] cursor-pointer p-2 rounded-full text-white"
               onClick={moveRight}
             >
               <ChevronRight />
