@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("hafizdaniyalshakeel@gmail.com");
   const [password, setPassword] = useState("12345678");
+  const [loading, setLoading] = useState(false);
   const { setIsLogin } = useAuth();
   const navigate = useNavigate();
   const submitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await axiosInstance.post("/api/auth/login", {
         email,
@@ -26,6 +28,8 @@ const Login = () => {
     } catch (error) {
       setIsLogin(false);
       throw new Error(error);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -64,9 +68,15 @@ const Login = () => {
             name="password"
           />
           <input
-            className="mt-4 w-full bg-[#FF5E3A] hover:bg-[#ff5e3ab8] transition-all duration-200 py-2 rounded-md cursor-pointer"
+            className={`mt-4 w-full py-2 rounded-md cursor-pointer transition-all duration-200 
+    ${
+      loading
+        ? "bg-[#ff5e3a66] text-[#ffffff84] cursor-not-allowed"
+        : "bg-[#FF5E3A] text-white hover:bg-[#ff5e3ab8]"
+    }`}
             type="submit"
-            value="Login"
+            value={loading ? "Logging..." : "Login"}
+            disabled={loading}
           />
         </form>
       </div>

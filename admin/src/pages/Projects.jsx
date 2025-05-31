@@ -147,7 +147,7 @@ const Projects = () => {
   useEffect(() => {}, [id]);
 
   return (
-    <div className="bg-black min-h-screen p-6 text-white">
+    <div className="bg-black min-h-screen px-[10px] py-6 text-white">
       <div className="flex items-center justify-between mb-5">
         <h1 className="font-bold text-2xl">Projects</h1>
         <button
@@ -350,7 +350,7 @@ const Projects = () => {
                   <h1 className="text-xl font-bold relative w-fit mb-2">
                     {project.title}
                     <span
-                      className={`font-light text-[12px] absolute top-0 right-[-88px] ${
+                      className={`font-light text-[12px] ml-4 ${
                         project.status === "published"
                           ? "bg-[#153D25]"
                           : "bg-[#453815]"
@@ -458,7 +458,7 @@ const Projects = () => {
                   </span>
                 </p>
                 {project?.whatsNew && (
-                  <div className="bg-[#1E2939] p-3 rounded-md text-[14px]">
+                  <div className="custom-scrollbar bg-[#1E2939] p-3 rounded-md text-[14px] max-w-[250px] overflow-auto md:max-w-[450px] lg:max-w-[650px]">
                     <h1 className="text-[#FF5E3A]">What's New:</h1>
                     <p>{project.whatsNew}</p>
                   </div>
@@ -468,7 +468,7 @@ const Projects = () => {
           );
         })
       ) : (
-        <div>No projects found</div>
+        <div>Loading...</div>
       )}
     </div>
   );
