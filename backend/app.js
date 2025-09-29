@@ -13,20 +13,38 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cookieParser());
+// app.use(
+//   cors({
+//     origin: [
+//       process.env.DEV_FRONTEND_URL,
+//       process.env.DEV_ADMIN_URL,
+//       process.env.STAGING_FRONTEND_URL,
+//       process.env.STAGING_ADMIN_URL,
+//       process.env.PROD_FRONTEND_URL,
+//       process.env.PROD_FRONTEND_WWW_URL,
+//       process.env.PROD_ADMIN_URL,
+//     ],
+//     credentials: true,
+//   })
+// );
+// Read from .env and split by comma
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || [];
+
 app.use(
   cors({
-    origin: [
-      process.env.DEV_FRONTEND_URL,
-      process.env.DEV_ADMIN_URL,
-      process.env.STAGING_FRONTEND_URL,
-      process.env.STAGING_ADMIN_URL,
-      process.env.PROD_FRONTEND_URL,
-      process.env.PROD_FRONTEND_WWW_URL,
-      process.env.PROD_ADMIN_URL,
-    ],
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS: " + origin));
+      }
+    },
     credentials: true,
   })
 );
+
+// Handle preflight requests
+app.options("*", cors());
 
 connectDB();
 connectCloudinary();
