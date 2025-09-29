@@ -16,10 +16,10 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: [
-      process.env.VITE_FRONTEND_URL,
-      process.env.VITE_ADMIN_URL,
-      process.env.VERCEL_FRONTEND_URL,
-      process.env.VERCEL_ADMIN_URL,
+      process.env.DEV_FRONTEND_URL,
+      process.env.DEV_ADMIN_URL,
+      process.env.STAGING_FRONTEND_URL,
+      process.env.STAGING_ADMIN_URL,
       process.env.PROD_FRONTEND_URL,
       process.env.PROD_FRONTEND_WWW_URL,
       process.env.PROD_ADMIN_URL,
