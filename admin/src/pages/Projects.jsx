@@ -61,9 +61,13 @@ const Projects = () => {
     try {
       let res;
       if (addProject) {
-        res = await axiosInstance.post("/api/projects/add", formData);
+        res = await axiosInstance.post("/api/projects/add", formData, {
+          withCredentials: true,
+        });
       } else {
-        res = await axiosInstance.put(`/api/projects/update/${id}`, formData);
+        res = await axiosInstance.put(`/api/projects/update/${id}`, formData, {
+          withCredentials: true,
+        });
       }
       if (res.data.ok) {
         setAddProject(false);
@@ -92,7 +96,9 @@ const Projects = () => {
 
   const fetchProjects = async () => {
     try {
-      const res = await axiosInstance.get("/api/projects/list");
+      const res = await axiosInstance.get("/api/projects/list", {
+        withCredentials: true,
+      });
       if (res.data.ok) {
         setProjects(res.data.projects);
       } else {
@@ -104,7 +110,9 @@ const Projects = () => {
 
   const deleteProject = async (id) => {
     try {
-      const res = await axiosInstance.delete(`/api/projects/delete/${id}`);
+      const res = await axiosInstance.delete(`/api/projects/delete/${id}`, {
+        withCredentials: true,
+      });
       if (res.data.ok) {
         fetchProjects();
       } else {
@@ -116,7 +124,9 @@ const Projects = () => {
 
   const getProject = async (id) => {
     try {
-      const res = await axiosInstance.get(`/api/projects/list/${id}`);
+      const res = await axiosInstance.get(`/api/projects/list/${id}`, {
+        withCredentials: true,
+      });
       if (res.data.ok) {
         setData({
           title: res.data.project.title || "",
