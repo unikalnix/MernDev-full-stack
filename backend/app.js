@@ -13,20 +13,6 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cookieParser());
-// app.use(
-//   cors({
-//     origin: [
-//       process.env.DEV_FRONTEND_URL,
-//       process.env.DEV_ADMIN_URL,
-//       process.env.STAGING_FRONTEND_URL,
-//       process.env.STAGING_ADMIN_URL,
-//       process.env.PROD_FRONTEND_URL,
-//       process.env.PROD_FRONTEND_WWW_URL,
-//       process.env.PROD_ADMIN_URL,
-//     ],
-//     credentials: true,
-//   })
-// );
 // Read from .env and split by comma
 const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || [];
 
@@ -43,9 +29,6 @@ app.use(
   })
 );
 
-// Handle preflight requests
-app.options("*", cors());
-
 connectDB();
 connectCloudinary();
 
@@ -60,10 +43,6 @@ app.get("/api/check-auth", adminAuth, (req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/projects", projectRouter);
 
-if (process.env.NODE_ENV === "development") {
-  app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-  });
-}
-
-export default app;
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
