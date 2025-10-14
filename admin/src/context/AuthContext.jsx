@@ -5,10 +5,12 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(null);
-  
+
   const checkAuth = async () => {
     try {
-      const res = await axiosInstance.get("/check-auth");
+      const res = await axiosInstance.get("/check-auth", {
+        withCredentials: true,
+      });
       if (res.data.ok) {
         setIsLogin(true);
       } else {
@@ -22,7 +24,11 @@ export const AuthProvider = ({ children }) => {
 
   const handleLogout = async () => {
     try {
-      const res = await axiosInstance.post("/api/auth/logout", {},{withCredentials:true});
+      const res = await axiosInstance.post(
+        "/api/auth/logout",
+        {},
+        { withCredentials: true }
+      );
       if (res.data.ok) {
         setIsLogin(false);
       } else {
