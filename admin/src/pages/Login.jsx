@@ -13,10 +13,14 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axiosInstance.post("/api/auth/login", {
-        email,
-        password,
-      });
+      const res = await axiosInstance.post(
+        "/api/auth/login",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
 
       if (res.data.ok) {
         setIsLogin(true);
