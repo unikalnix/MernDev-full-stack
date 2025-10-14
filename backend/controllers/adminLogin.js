@@ -15,6 +15,7 @@ const adminLogin = (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "none",
+      domain: ".merndev.site",
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
     return res.json({ ok: true, message: "Admin authenticated" });
