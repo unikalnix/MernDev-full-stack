@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
   res.send("API WORKING");
 });
 
-app.get("/api/check-auth", adminAuth, (req, res) => {
+app.get("/check-auth", adminAuth, (req, res) => {
   res.json({ ok: true, message: "Auth Successful" });
 });
 
